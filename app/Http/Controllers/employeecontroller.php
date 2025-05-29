@@ -10,8 +10,9 @@ class employeecontroller extends Controller
 {
     public function index()
     {   
+        $employees = employee::get();
 
-        return view ('employee.index');
+        return view ('employee.index', compact('employees'));
     }
 
     public function create()
@@ -39,7 +40,7 @@ class employeecontroller extends Controller
     public function edit( int $id)
     {
         $employees = employee::find($id);
-        return view ('employee.edit', compact ('employees'));
+        return view ('employee.edit',compact('employees'));
     }
 
     public function update(Request $request, int $id) {
@@ -59,7 +60,7 @@ class employeecontroller extends Controller
             }
     }
 
-    public function destroy (int $id){
+    public function destroy(int $id){
         $employees = employee::findOrFail($id);
         $employees->delete();
         return redirect ()->back()->with('status','Employee Deleted');
